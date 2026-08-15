@@ -2,17 +2,24 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sistem Pencatatan Kegiatan Harian</title>
   <style>
     html, body {
       margin: 0;
       padding: 0;
+      width: 100%;
       height: 100%;
       overflow: hidden;
+      background: #fff;
+      /* Ver.2 (fix tampilan): supaya body benar-benar sepenuh layar, bukan cuma
+         mengandalkan height:100% (yang gampang meleset kalau ada elemen lain kecil
+         nyelip / margin default browser). */
+      display: flex;
     }
     #app-frame {
       display: block;
+      flex: 1 1 auto;
       width: 100%;
       /* Fallback awal sebelum JS jalan (browser lama tanpa visualViewport tetap dapat 100vh) */
       height: 100vh;
@@ -31,6 +38,8 @@
     src="https://script.google.com/macros/s/AKfycbwKsoOp9p0yH4PVp6ofrRJv3ZmuNHEQerb2MCV8F_xy2xXuHulnrRr4WC2R0nSzGuYo/exec"
     title="Sistem Pencatatan Kegiatan Harian"
     allow="clipboard-write"
+    frameborder="0"
+    scrolling="auto"
   ></iframe>
 
   <script>
