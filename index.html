@@ -14,6 +14,7 @@
     #app-frame {
       display: block;
       width: 100%;
+      /* Fallback awal sebelum JS jalan (browser lama tanpa visualViewport tetap dapat 100vh) */
       height: 100vh;
       border: none;
     }
@@ -31,5 +32,33 @@
     title="Sistem Pencatatan Kegiatan Harian"
     allow="clipboard-write"
   ></iframe>
+
+  <script>
+    // FIX: sebelumnya iframe dikunci tinggi statis "100vh" dan halaman pembungkus ini
+    // (html/body) discroll-mati (overflow:hidden). Akibatnya saat keyboard HP muncul
+    // (mengetik di dalam form Apps Script), kotak iframe TIDAK ikut mengecil -- bagian
+    // bawahnya (termasuk tombol Simpan) jadi ketutup keyboard, dan karena halaman
+    // pembungkus ini sendiri tidak bisa discroll, sama sekali tidak ada cara untuk
+    // mengungkapnya lagi. Fix ini bikin tinggi iframe mengikuti tinggi layar yang BENAR-
+    // BENAR masih terlihat (window.visualViewport.height, yang otomatis ikut menyusut
+    // saat keyboard muncul di Chrome/Edge Android) -- diupdate real-time, bukan cuma
+    // dihitung sekali di awal.
+    (function () {
+      var frame = document.getElementById('app-frame');
+
+      function setFrameHeight() {
+        var h = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+        frame.style.height = h + 'px';
+      }
+
+      setFrameHeight();
+      window.addEventListener('resize', setFrameHeight);
+      window.addEventListener('orientationchange', setFrameHeight);
+      if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', setFrameHeight);
+        window.visualViewport.addEventListener('scroll', setFrameHeight);
+      }
+    })();
+  </script>
 </body>
 </html>
