@@ -32,12 +32,20 @@
     GANTI URL DI BAWAH dengan URL deployment Web App Apps Script kamu
     (yang berakhiran /exec). Ambil dari: Apps Script Editor -> Deploy ->
     Manage deployments -> salin "Web app URL".
+
+    BARU: atribut "allow" ditambahi "screen-wake-lock" (di samping "clipboard-write"
+    yang sudah ada). Ini WAJIB supaya fitur "Jaga layar tetap menyala" (Wake Lock API)
+    di dalam app Apps Script bisa berfungsi -- browser secara default MEMBLOKIR Wake
+    Lock API untuk iframe cross-origin (domain script.google.com beda dengan domain
+    halaman pembungkus GitHub Pages ini), kecuali diizinkan lewat atribut "allow" di
+    sini. Tanpa ini, tombol Wake Lock di dalam app akan diam-diam gagal tanpa error
+    yang kelihatan.
   -->
   <iframe
     id="app-frame"
-    src="https://script.google.com/macros/s/AKfycbz9eH0QEgY9fnQpk9ThJbJ6xT8FFyGLTdX5-7v9Zbrr4YrbEmkPg4KFF5yGmsDOKpjZ/exec"
+    src="https://script.google.com/macros/s/AKfycbyb8AKgr-0M_6GXeOG3IhkHTrnefbMuIQkGbYq3zvv6yUJex6mG4rwitWAmciDd8_p_/exec"
     title="Sistem Pencatatan Kegiatan Harian"
-    allow="clipboard-write"
+    allow="clipboard-write; screen-wake-lock"
     frameborder="0"
     scrolling="auto"
   ></iframe>
